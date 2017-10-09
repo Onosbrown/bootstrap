@@ -3,16 +3,17 @@
 'use strict'
 
 /*!
- * Script to start a local http server and run broken-link-checker on the Bootstrap documentation site.
+ * Script to start a local http server and run broken-link-checker
+ *  on the Bootstrap documentation site.
  * Copyright 2017 The Bootstrap Authors
  * Copyright 2017 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
-var finalhandler = require('finalhandler')
-var http = require('http')
-var serveStatic = require('serve-static')
-var Blc = require('broken-link-checker/lib/cli')
+const finalhandler = require('finalhandler')
+const http = require('http')
+const serveStatic = require('serve-static')
+const Blc = require('broken-link-checker/lib/cli')
 
 function main(args) {
 
@@ -22,16 +23,16 @@ function main(args) {
     process.exit(1)
   }
 
-  var directory = args[0]
-  var port = args[1]
+  const directory = args[0]
+  const port = args[1]
 
-  var serve = serveStatic(directory)
-  var server = http.createServer(function onRequest(req, res) {
+  const serve = serveStatic(directory)
+  const server = http.createServer(function onRequest(req, res) {
     serve(req, res, finalhandler(req, res))
   })
 
-  server.listen(port, function () {
-    new Blc().input(['http://localhost:' + port].concat(args.slice(2)))
+  server.listen(port, () => {
+    new Blc().input([`http://localhost:${port}`].concat(args.slice(2)))
   })
 }
 
