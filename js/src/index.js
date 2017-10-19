@@ -24,10 +24,13 @@ import Util from './util'
   }
 
   const version = $.fn.jquery.split(' ')[0].split('.')
-  const min = 3
+  const min = 2
+  const minRecommended = 3
   const max = 4
   if (version[0] < min || version[0] >= max) {
     throw new Error('Bootstrap\'s JavaScript requires at least jQuery v3.0.0 but less than v4.0.0')
+  } else if (version[0] < minRecommended || version[0] >= max) {
+    console.warn(`You're using a jQuery version (${version}) not tested by Bootstrap; proceed on your own risk.`) // eslint-disable-line no-console
   }
 })($)
 
